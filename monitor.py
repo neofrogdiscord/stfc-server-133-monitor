@@ -73,13 +73,20 @@ def send_discord(message):
         WEBHOOK,
         data=data,
         headers={
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "User-Agent": "STFC-Server-133-Monitor/1.0"
         },
         method="POST"
     )
 
-    with urllib.request.urlopen(request, timeout=15) as response:
-        return response.status
+    try:
+        with urllib.request.urlopen(request, timeout=15) as response:
+            print("Discord response:", response.status)
+
+    except urllib.error.HTTPError as e:
+        print("Discord HTTP error:", e.code)
+        print("Discord response:", e.read().decode("utf-8", errors="replace"))
+        raise
 
 
 def main():
