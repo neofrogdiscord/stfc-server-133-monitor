@@ -3,7 +3,6 @@ name: STFC Server 133 Monitor
 on:
   schedule:
     - cron: "*/5 * * * *"
-
   workflow_dispatch:
 
 jobs:
@@ -13,6 +12,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Record start time
+        run: |
+          echo "Workflow started at:"
+          date -u
 
       - name: Check Python
         run: python --version
