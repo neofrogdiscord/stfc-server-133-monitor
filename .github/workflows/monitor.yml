@@ -1,9 +1,6 @@
 name: STFC Server 133 Monitor
 
 on:
-  schedule:
-    - cron: "*/5 * * * *"
-
   workflow_dispatch:
 
 jobs:
@@ -14,8 +11,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Check Python
+        run: python --version
+
       - name: Run STFC monitor
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-        run: |
-          python monitor.py
+        run: python monitor.py
