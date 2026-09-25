@@ -1,6 +1,9 @@
 name: STFC Server 133 Monitor
 
 on:
+  schedule:
+    - cron: "*/5 * * * *"
+
   workflow_dispatch:
 
 jobs:
@@ -13,17 +16,6 @@ jobs:
 
       - name: Check Python
         run: python --version
-
-      - name: Check webhook format
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-        run: |
-          if [[ "$DISCORD_WEBHOOK" == https://discord.com/api/webhooks/* ]]; then
-            echo "Webhook format looks correct"
-          else
-            echo "Webhook format is WRONG"
-            exit 1
-          fi
 
       - name: Run STFC monitor
         env:
