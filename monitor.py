@@ -5,7 +5,7 @@ import time
 import urllib.request
 import json
 
-HOST = "cdn-prime.digitgaming.com"
+HOST = "raven-prime.aprod.scopely.io"
 PORT = 443
 WEBHOOK = os.environ["DISCORD_WEBHOOK"]
 
