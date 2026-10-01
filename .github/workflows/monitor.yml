@@ -24,8 +24,4 @@ jobs:
       - name: Run STFC monitor
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-        run: |
-          echo "=== monitor.py contents ==="
-          cat monitor.py
-          echo "=== running monitor.py ==="
-          python -u monitor.py
+        run: python monitor.py
