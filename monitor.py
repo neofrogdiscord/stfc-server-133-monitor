@@ -5,7 +5,7 @@ import time
 import urllib.request
 import json
 
-HOST = "cdn-live-eu1-gwc.startrek.digitgaming.com"
+HOST = "cdn-prime.digitgaming.com"
 PORT = 443
 WEBHOOK = os.environ["DISCORD_WEBHOOK"]
 
