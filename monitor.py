@@ -66,6 +66,52 @@ def check_server():
     ), "\n".join(results)
 
 
+def test_live_eu1():
+    host = "cdn-live-eu1-web.startrek.digitgaming.com"
+
+    print(f"\nTesting {host}")
+
+    try:
+        start = time.time()
+
+        request = urllib.request.Request(
+            f"https://{host}/",
+            headers={
+                "User-Agent": "STFC-Server-133-Monitor/1.0"
+            }
+        )
+
+        context = ssl.create_default_context()
+
+        with urllib.request.urlopen(
+            request,
+            timeout=TIMEOUT,
+            context=context
+        ) as response:
+
+            latency = round((time.time() - start) * 1000)
+
+            print(f"HTTP status: {response.status}")
+            print(f"Latency: {latency} ms")
+            print(
+                f"Content-Type: "
+                f"{response.headers.get('Content-Type')}"
+            )
+
+            body = response.read(500)
+
+            print("Response:")
+            print(
+                body.decode(
+                    "utf-8",
+                    errors="replace"
+                )
+            )
+
+    except Exception as e:
+        print(f"TEST FAILED: {e}")
+
+
 def send_discord(message):
     data = json.dumps({
         "content": message
@@ -82,19 +128,33 @@ def send_discord(message):
     )
 
     try:
-        with urllib.request.urlopen(request, timeout=15) as response:
-            print("Discord response:", response.status)
+        with urllib.request.urlopen(
+            request,
+            timeout=15
+        ) as response:
+            print(
+                "Discord response:",
+                response.status
+            )
 
     except urllib.error.HTTPError as e:
-        print("Discord HTTP error:", e.code)
+        print(
+            "Discord HTTP error:",
+            e.code
+        )
         print(
             "Discord response:",
-            e.read().decode("utf-8", errors="replace")
+            e.read().decode(
+                "utf-8",
+                errors="replace"
+            )
         )
         raise
 
 
 def main():
+    test_live_eu1()
+
     successful = 0
     details = []
 
@@ -106,7 +166,8 @@ def main():
 
         details.append(
             f"Attempt {attempt + 1}: "
-            f"{'ONLINE' if online else 'OFFLINE'}\n{result}"
+            f"{'ONLINE' if online else 'OFFLINE'}\n"
+            f"{result}"
         )
 
         if attempt < ATTEMPTS - 1:
