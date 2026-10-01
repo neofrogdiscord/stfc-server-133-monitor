@@ -10,10 +10,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-          - name: Test STFC Live EU1
-        run: |
-          echo "Testing cdn-live-eu1-web.startrek.digitgaming.com"
-          curl -v https://cdn-live-eu1-web.startrek.digitgaming.com/ 2>&1
       - name: Checkout
         uses: actions/checkout@v4
 
