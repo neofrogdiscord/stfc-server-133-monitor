@@ -3,6 +3,7 @@ import socket
 import ssl
 import time
 import urllib.request
+import urllib.error
 import json
 
 HOST = "raven-prime.aprod.scopely.io"
@@ -20,6 +21,7 @@ def check_server():
         addresses = socket.getaddrinfo(
             HOST,
             PORT,
+            family=socket.AF_INET,
             type=socket.SOCK_STREAM
         )
 
@@ -85,7 +87,10 @@ def send_discord(message):
 
     except urllib.error.HTTPError as e:
         print("Discord HTTP error:", e.code)
-        print("Discord response:", e.read().decode("utf-8", errors="replace"))
+        print(
+            "Discord response:",
+            e.read().decode("utf-8", errors="replace")
+        )
         raise
 
 
