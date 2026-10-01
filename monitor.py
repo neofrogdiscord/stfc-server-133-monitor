@@ -6,7 +6,7 @@ import urllib.request
 import urllib.error
 import json
 
-HOST = "raven-prime.aprod.scopely.io"
+HOST = "cdn-live-eu1-web.startrek.digitgaming.com"
 PORT = 443
 WEBHOOK = os.environ["DISCORD_WEBHOOK"]
 
